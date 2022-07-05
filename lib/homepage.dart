@@ -53,10 +53,10 @@ class _homepageState extends State<homepage> {
   Widget build(BuildContext context) {
     isloading == false
         ? _markers.add(Marker(
-            markerId: MarkerId('SomeId'),
+            markerId: MarkerId('marker1'),
             position: LatLng(lat!, lng!),
             infoWindow: InfoWindow(title: isenable=="true"?
-            'You are pinned  here':"You are here")))
+            'Your pinned location is here':"Your current location is here")))
         : SizedBox();
     return Scaffold(
       body: isloading
@@ -131,11 +131,8 @@ class _homepageState extends State<homepage> {
             onPressed: () async{
               SharedPreferences prefs=await SharedPreferences.getInstance();
               prefs.remove("isenable");
-              setState(() {
                 Navigator.push(
                     context, MaterialPageRoute(builder: (context) => homepage()));
-              });
-
             },
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(30),
@@ -180,17 +177,21 @@ class _homepageState extends State<homepage> {
     Position position = await _getGeoLocationPosition();
     lat = position.latitude;
     lng = position.longitude;
-    String? childnode = position.hashCode.toString();
-    setState(() {
-      database.child("Location").child(uid.toString()).child(childnode).set({
-        'latitude': position.latitude,
-        'longitude': position.longitude,
+    isenable= prefs.getString("isenable");
+    if(isenable!="true") {
+      String? childnode = position.hashCode.toString();
+      setState(() {
+        database.child("Location").child(uid.toString()).child(childnode).set({
+          'latitude': position.latitude,
+          'longitude': position.longitude,
+        });
       });
-     isenable= prefs.getString("isenable");
-     if(isenable=="true") {
-       lat1 = prefs.getDouble("lat");
-       lng1 = lng = prefs.getDouble("lng");
-     }
+    }
+    setState(() {
+      if(isenable=="true") {
+        lat1 = prefs.getDouble("lat");
+        lng1 = prefs.getDouble("lng");
+      }
       isloading = false;
     });
   }
