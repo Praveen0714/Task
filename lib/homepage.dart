@@ -15,6 +15,7 @@ import 'package:permission_handler/permission_handler.dart'
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'locationlist.dart';
+// jk
 
 class homepage extends StatefulWidget {
   const homepage({Key? key}) : super(key: key);
@@ -29,7 +30,7 @@ class _homepageState extends State<homepage> {
   double? lat, lng;
   double? lat1,lng1;
   bool isloading = true;
-  Timer? timer;
+  // Timer? timer;
   final database = FirebaseDatabase.instance.reference();
   final FirebaseAuth _auth = FirebaseAuth.instance;
   String? uid;
@@ -42,7 +43,7 @@ class _homepageState extends State<homepage> {
     super.initState();
     getlocation();
     getuserid();
-     timer = Timer.periodic(Duration(minutes:15), (Timer t) => getlocation());
+     // timer = Timer.periodic(Duration(minutes:15), (Timer t) => getlocation());
   }
 
   getuserid() {
