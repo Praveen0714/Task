@@ -1,8 +1,4 @@
 import 'dart:async';
-import 'dart:collection';
-
-import 'package:custom_info_window/custom_info_window.dart'
-    show CustomInfoWindowController;
 import 'package:demotask/register.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
